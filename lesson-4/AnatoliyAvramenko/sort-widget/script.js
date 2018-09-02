@@ -46,6 +46,10 @@ fillTable(testTableContent);
 const table = document.querySelector('table');
 
 let sortTable = event => {
+
+    if (event.target.tagName !== 'TH') {
+        return;
+    }
     let toggler = true;
     let sortOrder = 'asc';
     let columnIndex = event.target.cellIndex;
