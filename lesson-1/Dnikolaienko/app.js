@@ -1,103 +1,101 @@
 // Task 1
-function isInArray() {
-    let check = arguments[0];
-    let arg = [];
-    for (a = 1; a < arguments.length; a++) {
-            if(check.indexOf(arguments[a]) === -1) {
-                arg.push(arguments[a]);
-            }
+function isInArray(...args) {
+  const check = args[0]; // получаем массив с нужными нам числами
+  const arg = []; // инициализируем пустой массив несоответсвий
+  for (let a = 1; a < args.length; a++) {
+    if (check.indexOf(args[a]) === -1) { // в цикле проверяем если последующие данные соответсветсвуют данным в массиве с числами
+      arg.push(args[a]); // добавляем не соответсвия в массив несоответсвий
     }
+  }
 
-    if(arg.length == 0) {
-        return true;
-    } else {
-        return false;
-    }
+  let answer; // инициализирую ответ
+  if (arg.length === 0) { // если массив несоответсвий пусто то возращаю true, в другом случае false
+    answer = true;
+  } else {
+    answer = false;
+  }
 
+  return answer;
 }
 
 console.log(isInArray([3,7,8],3,7,8));
 
 // Task 2
-function summator() {
-    let zero = 0;
-    for(let i = 0; i < arguments.length; i++) {
-        if(isNaN(arguments)) {
-            zero += Number(arguments[i]);
-        } else {
-            zero += arguments[i];
-        }
+function summator(...args) {
+  let zero = 0; // инициализирую числовую переменую
+  for (let i = 0; i < args.length; i++) { // прохожу циклом по спред оператору
+    if (isNaN(args)) { // если данные являются не числом то принудительно приводим их к числу
+      zero += Number(args[i]);
+    } else {
+      zero += args[i]; // суммирует всё с числовой переменой
     }
-    return zero;
+  }
+  return zero;
 }
 
 console.log(summator(4,5,8,9));
 
 // Task 3
-function getUnique() {
-    let uniq = [];
-    for (j = 0; j < arguments.length; j++) {
-        uniq.push(arguments[j]);
-    }
+function getUnique(...args) {
+  const uniq = []; // объявляем пустой массив
+  for (let j = 0; j < args.length; j++) {
+    uniq.push(args[j]); // добавляем все входящие данные в пустой массив
+  }
 
-    return new Set(uniq);
+  return new Set(uniq); // получаем коллекцию уникальных чисел
 }
 
 console.log(getUnique(4,5,6,6,4,2,1));
 
 // Task 4
 function policeTurn(sentence) {
-    let words = sentence.split(' ');
-    let reg = /[a-zA-Z]/;
-    let resultSentence = '';
+  const words = sentence.split(' '); // разбиваем предложения по словам
+  const reg = /[a-zA-Z]/; // инициализируем регулярное выражение
+  let resultSentence = ''; // объявляем пустую строку
 
-    for (let word of words) {
-        let pos = 0;
-        let reverseWord = '';
+  for (let a; a < words.length; a++) {
+    let reverseWord = '';
 
-        for (let symb of word) {
-            if(reg.test(symb)) {
-                reverseWord += word[(word.length-1) - pos];
-            } else {
-                reverseWord += symb;
-            }
-            pos++;
-        }
-
-       resultSentence += ` ${reverseWord}`;
+    for (let b = 0; b < words[a].length; b++) { // получаем символ из слова
+      if (reg.test(words[b])) { // проверяем соотвествие символа к регулярному выражению 
+        reverseWord += words[b][(words[b].length - 1) - b];
+      } else {
+        reverseWord += words[b];
+      }
     }
 
-    return resultSentence;
+    resultSentence += ` ${reverseWord}`; // используя ес6 тимплейте собираем заново предложение
+  }
+
+  return resultSentence;
 }
 
-let sentence1 = 's1tar3t 2 hellow';
-let sentence2 = 's1ta$%r3t 2 hel^low';
-let sentence3 = 's1tar3t 2   low5';
+const sentence1 = 's1tar3t 2 hellow';
+const sentence2 = 's1ta$%r3t 2 hel^low';
+const sentence3 = 's1tar3t 2   low5';
 
 console.log(policeTurn(sentence1));
 
 
 function repeater(str) {
-    let double = 1;
-    let result = '';
-    let char = '';
-    for(let j = 0; j < str.length; j++) {
-        if(str[j] === str[j+1]) {
-            char = str[j];
-            double += 1;
-        } else {
-            if(double > 1) {
-                result += `${char}${double}`;
-            }
-            char = str[j];
-            double = 1;
-        }
+  let double = 1; // инициализируем числовую переменую
+  let result = ''; // переменая результат
+  let char = ''; // переменая текущего символа
+  for (let j = 0; j < str.length; j++) {
+    if (str[j] === str[j+1]) { // проверяем текущий символ с последующим
+      char = str[j];
+      double += 1;
+    } else {
+      if (double > 1) { // если дабл больше 2х то конкатенируем строку
+        result += `${char}${double}`;
+      }
+      char = str[j];
+      double = 1;
     }
-    
-    result += `${char}${double}`;
-    
-    return result;
+  }
+  result += `${char}${double}`;  // также конкатенируем строку,для не дублирующихся данных
+  return result;
 }
 
-let str = 'aaabbacc';
+const str = 'aaabbacc';
 console.log(repeater(str));
