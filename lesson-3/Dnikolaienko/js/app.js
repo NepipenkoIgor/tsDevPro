@@ -1,15 +1,11 @@
 /* 1) Реализовать функцию next(node), которая вернет следующий узел, не учитывая текстовые узлы и узлы комментариев. */
 
 const findChild = (function(node) { // объявляем безымяную функцию
-  try {
     let nextEl = document.querySelector(node).nextElementSibling; // получаем следующий узел после переданного
     if(nextEl != null) { // проверяем если узел не пуст
         return nextEl.nodeType != 3 || nextEl.nodeType != 8 ? nextEl : findChild(nextEl); // тернарный оператор проверяет если узел не текст и не комментарии то возвращает его в противном случаем рекурсивно запускаем функцию
     } else {
         throw new Error('Node dont be a empty, or text-element'); // создаем эксепшен
-    }
-    } catch(e) {
-        console.log(e); // ловим эексепшен и выводим его
     }
 })('#main');
 
@@ -20,11 +16,9 @@ console.log(findChild);
 const addClass = (node, classToAdd) => {
   const currEl = document.querySelector(node); // получаем нужный нам узел
 
-  if (currEl.classList.contains(classToAdd)) { // проверяем содержит ли наш узел заданный класс
-    throw new Error(`Class with same name => ${classToAdd} is already exists`); // если содержит то выкидываем ошибку
+  if (!currEl.hasAttribute('class', classToAdd)) { // проверяем содержит ли наш узел заданный класс
+    currEl.setAttribute('class', classToAdd); // если содержит то выкидываем ошибку
   }
-
-  return currEl.classList.toggle(classToAdd); // в другом случае используем функциию которая удаляет а потом добавляет класс
 };
 
 console.log(addClass('#main', 'myClass'));
