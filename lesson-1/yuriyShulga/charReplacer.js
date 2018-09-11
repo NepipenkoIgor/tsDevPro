@@ -4,15 +4,15 @@ const charReplacer = text => text
   .reduce((accum, curVal) => {
     let symbols = {};
     let letters = curVal.split('').filter((char, index) => {
-      if (/\W/.test(char)) {
-        symbols[char] = index;
+      if (/[^a-zA-Z]/.test(char)) {
+        symbols[index] = char;
         return false;
       }
       return true;
     }).reverse();
 
     for (const symb in symbols) {
-      letters.splice(symbols[symb], 0, symb);
+      letters.splice(symb, 0, symbols[symb]);
     }
 
     return [...accum, ...letters, ' '].join('');
