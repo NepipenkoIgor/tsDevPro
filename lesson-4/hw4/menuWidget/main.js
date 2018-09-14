@@ -14,14 +14,9 @@ const list = createList(['Животные',
 console.log(list);
 document.querySelector('menu').appendChild(list);
 
-const hideElem = (elem) => {
-  if (elem.classList.contains('hidden')) {
-    elem.classList.remove('hidden');
-    return elem;
-  }
+// will return true, if class was added or false if class was removed.
+const hideElem = elem => elem.classList.toggle('hidden');
 
-  return elem.classList.add('hidden');
-};
 
 list.addEventListener('click', (e) => {
   let chldrn = [...e.target.parentElement.children];

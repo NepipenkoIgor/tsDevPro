@@ -9,7 +9,8 @@ tbl.addEventListener('click', (e) => {
   const { cellIndex } = e.target;
   const thRow = rows.slice(0, 1)[0];
 
-  rows = rows.slice(1, rows.lenght).sort((currentRow, nextRow) => {
+  rows = rows.slice(1, rows.lenght)
+  .sort((currentRow, nextRow) => {
     const curVal = currentRow.cells[cellIndex].textContent;
     const nextVal = nextRow.cells[cellIndex].textContent;
 
