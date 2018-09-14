@@ -7,11 +7,8 @@ const next = (node) => {
   return nextElem.nodeType === 1 ? nextElem : next(nextElem);
 };
 
+//contains method isn't necessary because in case you try to add existing class, method classList.add willn't couse an error
 const addClass = (node, classToAdd) => {
-  if (node.classList.contains(classToAdd)) {
-    throw new Error(`Class ${classToAdd} is already exists`); // or just return node;
-  }
-
   node.classList.add(classToAdd);
   return node;
 };
