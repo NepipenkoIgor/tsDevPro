@@ -8,12 +8,25 @@
     "moment-timezone": "^0.5.21"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
     "css-loader": "^1.0.0",
     "eslint": "^5.5.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jasmine": "^2.10.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-webpack-plugin": "^3.2.0",
+    "jasmin": "0.0.2",
+    "jasmine-core": "^3.2.1",
+    "karma": "^3.0.0",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-commonjs": "^1.0.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^1.1.2",
     "pre-commit": "^1.2.2",
     "style-loader": "^0.23.0",
     "ts-node": "^7.0.1",
@@ -24,7 +37,7 @@
     "webpack-dev-server": "^3.1.8"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "lint": "eslint '**/*.js'",
     "start:dev": "webpack-dev-server -w"
   },
@@ -38,8 +51,6 @@
   "bugs": {
     "url": "https://github.com/NepipenkoIgor/tsDevPro/issues"
   },
-  "pre-commit": [
-
-  ],
+  "pre-commit": [],
   "homepage": "https://github.com/NepipenkoIgor/tsDevPro#readme"
 }
