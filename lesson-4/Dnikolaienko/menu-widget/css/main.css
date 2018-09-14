@@ -1,0 +1,11 @@
+.hidden {
+    display: none;
+}
+
+li a:hover {
+    font-weight: bold;
+}
+
+li::selection {
+    background-color: transparent;
+}
