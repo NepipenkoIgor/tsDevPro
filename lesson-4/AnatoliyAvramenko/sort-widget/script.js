@@ -53,7 +53,7 @@ const sortTable = (event) => {
   let sortOrder = 'asc';
   const columnIndex = event.target.cellIndex;
   let i;
-  let sholdSwitch;
+  let shouldSwitch;
   let switchcount = 0;
 
   while (toggler === true) {
@@ -81,7 +81,7 @@ const sortTable = (event) => {
     if (shouldSwitch === true) {
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       toggler = true;
-      switchcount++;
+      switchcount += 1;
     } else if (sortOrder === 'asc' && switchcount === 0) {
       sortOrder = 'desc';
       toggler = true;
