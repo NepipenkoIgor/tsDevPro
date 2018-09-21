@@ -1,42 +1,42 @@
 const body = document.querySelector('body');
-let testTableContent = [
-    {name: 'John', surname: 'Lennon'},
-    {name: 'aingo', surname: 'Starr'},
-    {name: 'George', surname: 'Harrison'},
-    {name: 'Paul', surname: 'McCartney'}
+const testTableContent = [
+  { name: 'John', surname: 'Lennon' },
+  { name: 'aingo', surname: 'Starr' },
+  { name: 'George', surname: 'Harrison' },
+  { name: 'Paul', surname: 'McCartney' },
 ];
 
-let createEl = (tag, parent, content) => {
-    let node = document.createElement(tag);
-    node.innerText = content;
-    parent.appendChild(node);
+// the custom function for creating the new nodes
+const createEl = (tag, parent, content) => {
+  const node = document.createElement(tag);
+  node.innerText = content;
+  parent.appendChild(node);
 };
 
 // init table with specified data
-let fillTable = data => {
-    let numOfCols = Object.keys(data[0]).length;
-    let table = document.createElement('table');    
-    
-    let tHead = table.createTHead();
-    let newRow = tHead.insertRow(-1);
+const fillTable = (data) => {
+  const numOfCols = Object.keys(data[0]).length;
+  const table = document.createElement('table');
 
-    createEl('th', newRow, 'No.')
+  const tHead = table.createTHead();
+  let newRow = tHead.insertRow(-1);
 
-    for (let i = 0; i < numOfCols; i++) {
-        createEl('th', newRow, Object.keys(data[0])[i]);
-    }
+  createEl('th', newRow, 'No.');
 
-    let tBody = table.createTBody();
+  for (let i = 0; i < numOfCols; i += 1) {
+    createEl('th', newRow, Object.keys(data[0])[i]);
+  }
 
-    data.forEach((el, index) => {        
-        newRow = tHead.insertRow(-1);
-        createEl('td', newRow, index + 1);
-        for (let key in el) {
-            createEl('td', newRow, el[key]);
-        }
+  data.forEach((el, index) => {
+    newRow = tHead.insertRow(-1);
+    createEl('td', newRow, index + 1);
+    const elValues = Object.values(el);
+    elValues.forEach((val) => {
+      createEl('td', newRow, val);
     });
+  });
 
-    body.appendChild(table);
+  body.appendChild(table);
 };
 
 fillTable(testTableContent);
@@ -45,54 +45,48 @@ fillTable(testTableContent);
 // sort table data on click
 const table = document.querySelector('table');
 
-let sortTable = event => {
+const sortTable = (event) => {
+  if (event.target.tagName !== 'TH') {
+    return;
+  }
+  let toggler = true;
+  let sortOrder = 'asc';
+  const columnIndex = event.target.cellIndex;
+  let i;
+  let sholdSwitch;
+  let switchcount = 0;
 
-    if (event.target.tagName !== 'TH') {
-        return;
-    }
-    let toggler = true;
-    let sortOrder = 'asc';
-    let columnIndex = event.target.cellIndex;
-    let i;
-    let switchcount = 0;
+  while (toggler === true) {
+    toggler = false;
+    const { rows } = table;
 
-    while (toggler === true) {
-        toggler = false;
-        let rows = table.rows;
+    for (i = 1; i < rows.length - 1; i += 1) {
+      shouldSwitch = false;
+      const x = rows[i].children[columnIndex].innerText.toLowerCase();
+      const y = rows[i + 1].children[columnIndex].innerText.toLowerCase();
 
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-            let x = rows[i].children[columnIndex].innerText.toLowerCase();
-            let y = rows[i+1].children[columnIndex].innerText.toLowerCase();
-            
-            if (sortOrder === 'asc') {
-                if (x > y) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (sortOrder === 'desc') {
-                if (x < y) {
-                    shouldSwitch = true;
-                    break;                    
-                }
-            }            
+      if (sortOrder === 'asc') {
+        if (x > y) {
+          shouldSwitch = true;
+          break;
         }
-
-        if (shouldSwitch === true) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i])
-            toggler = true;
-            switchcount++;
-        } else {
-            if (sortOrder === 'asc' && switchcount === 0) {                
-                sortOrder = 'desc';
-                toggler = true;
-            }
+      } else if (sortOrder === 'desc') {
+        if (x < y) {
+          shouldSwitch = true;
+          break;
         }
-
+      }
     }
-}
+
+    if (shouldSwitch === true) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      toggler = true;
+      switchcount++;
+    } else if (sortOrder === 'asc' && switchcount === 0) {
+      sortOrder = 'desc';
+      toggler = true;
+    }
+  }
+};
 
 table.addEventListener('click', sortTable);
-
-
-
