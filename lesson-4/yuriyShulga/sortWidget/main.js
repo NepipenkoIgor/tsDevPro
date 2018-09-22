@@ -4,8 +4,8 @@ tbl.addEventListener('click', (e) => {
   if (e.target.tagName !== 'TH') {
     return;
   }
-
-  let rows = [...tbl.children[0].children];
+  const [tbody] = [...tbl.children];
+  let rows = [...tbody.children];
   const { cellIndex } = e.target;
   const thRow = rows.slice(0, 1)[0];
 
